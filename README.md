@@ -17,7 +17,8 @@ Scroll wheel zooming is supported.<br/>
 
 <h2>TODO</h2>
 Review current annotations
-Undo
+Undo last annotation
+Create script to build the test and train text files.
 
 <h2>Install</h2>
 
@@ -26,7 +27,7 @@ All you need is PHP with gdimage.
 There are only two files that need web access: index.php and process.php.
 Within the web directory containing the two files, create a "data" directory.  This is the operational directory for a training set.  This way, it can simply be linked or copied out.  In the future, you will be able to select a training set to annotate.
 
-Create a classes.txt file in your data directory containing a class name per line, no special characters since this name will be used as IDs in the javascript.
+Create a classes.txt file in your data directory containing a class name per line, no special characters since this name will be used as IDs in the javascript.<B><i>All annotations are indexes to this file.  Only add new classes to end of file, otherwise you will need to redo all annotations for the new class order.</i></b>
 
 Put all of your images in a data/images directory.
 
