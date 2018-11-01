@@ -36,10 +36,6 @@ else if ($func == 'save') {
   $json = json_decode($_REQUEST['classes']);
   $fnimg = $_REQUEST['image'];
   $fn = substr($fnimg, 0, strlen($fnimg) - 4);
-  $im = imagecreatefromjpeg("data/images/$fnimg");
-  $imwidth = imagesx($im);
-  $imheight = imagesy($im);
-  imagedestroy($im);
   /*
   $xml = "<annotation>
   <folder>data</folder>
@@ -69,7 +65,6 @@ else if ($func == 'save') {
   $xml .= "</annotation>\n";
   file_put_contents("data/images/$fn.xml", $xml);
   * */
-  
   $txt = '';
   // Save as Darknet txt also
   foreach($json as $j) {
@@ -89,7 +84,10 @@ else if ($func == 'save') {
       $bh = $j->y1 - $j->y2; 
       $y = $j->y2;
     }
-    $txt .= $j->class.' '.($x / $imwidth).' '.($y / $imheight).' '.($bw / $imwidth).' '.($bh / $imheight)."\n";
+    //  Bounding box midpoint
+    $x += $bw / 2;
+    $y += $bh / 2;
+    $txt .= $j->class." $x $y $bw $bh\n";
   }
   file_put_contents("data/images/$fn.txt", $txt);
   echo "{\"status\":\"ok\"}\n";

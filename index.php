@@ -6,24 +6,32 @@
     .tclass {
       width: 100%;
       border: 1px solid black;
+      cursor: pointer;
+      font-size: 22px;
+    }
+    .title {
+      font-size:2em;
     }
   </style>
   </head>
-<body onload='init()'>
-<table border='1'>
-  <tr><td>PHP Annotator</td><td><div id='filename'></div></td></td></tr>
+<body onload='init()' style="overflow-x:hidden;">
+<table border='1' width="100%">
+  <tr><td class='title'>PHP Annotator</td><td><div id='filename'></div></td></td></tr>
   <tr>
     <td style="width:1024px; height:768px;">
       <canvas id='canvas'></canvas>
     </td>
-    <td valign='top'>
+    <td valign='top' style='width:20%; text-align:center;'>
       Classes<br/>
       <div id='classes'>
       </div>
       <br/>
       <div id='debug'></div>
       <br/>
-      <button onclick='save()'>Save</button>
+      <button onclick='undoLast()'>Undo Last Annotation</button><br/>
+      <button onclick='clearAll()'>Clear Annotations</button><br/>
+      <br/>
+      <button onclick='save()'>Save</button><br/>
     </td>
   </tr>
 </table>
@@ -50,11 +58,26 @@ function class_click(cls) {
   $("#class_" + cls).prop("checked", true);
 }
 
+function clearAll() {
+  classes = [];
+  clear();
+}
+
+function undoLast() {
+  classes.pop();
+  clear();
+}
+
+
 function init() {
   classes = [];
   canvas.width = 1024;
   canvas.height = 768;
-  //ctx.fillStyle = "blue";
+  scale = 1;
+  originx = 0;
+  originy = 0;
+  $("#debug").html("");
+ //ctx.fillStyle = "blue";
   //ctx.fillRect(0, 0, canvas.width, canvas.height);
   canvas.addEventListener('mousedown', mouseDown, false);
   canvas.addEventListener('mouseup', mouseUp, false);
@@ -74,7 +97,7 @@ function init() {
     col = 0;
     var r = '';
     for(var a in data.classes) {
-      r += "<div class='tclass' style='background-color:hsl(" + col + ",100%,50%)' onclick='class_click(\"" + a+"\");'>" + data.classes[a]  + "<input type=\"radio\" name='classes' id=\"class_" + data.classes[a] + "\"'/></div>";
+      r += "<div class='tclass' style='background-color:hsl(" + col + ",100%,50%)' onclick='class_click(\"" + a+"\");'><input type=\"radio\" name='classes' id=\"class_" + a + "\"'/>" + data.classes[a]  + "</div>";
       col += 60;
     }
     $('#classes').html(r);
@@ -96,7 +119,6 @@ function mouseDown(e) {
   var my = e.pageY - rct.top;
   rect.startX = mx / scale + originx;
   rect.startY = my / scale + originy;
-  console.log(rect.startX, rect.startY);
   drag = true;
 }
 
@@ -107,9 +129,9 @@ function mouseUp(e) {
   var my = e.pageY - rct.top;
   var x2 = mx /scale + originx;
   var y2 = my / scale + originy;
-  var z = {"class":tclass, "x1":rect.startX, "y1":rect.startY, "x2":x2, "y2":y2};
+  var z = {"class":tclass, "x1":(rect.startX/canvas.width), "y1":(rect.startY/canvas.height), "x2":(x2/canvas.width), "y2":(y2/canvas.height)};
   classes.push(z);
-  $("#debug").html(JSON.stringify(classes));
+  //$("#debug").html(JSON.stringify(classes));
   console.log(classes);
   drag = false;
   clear();
@@ -139,7 +161,7 @@ function clear() {
   for(var a in classes) {
     c = classes[a];
     ctx.fillStyle = "hsla(" + (c.class*60) + ", 100%, 50%, 0.3)";
-    ctx.fillRect(c.x1, c.y1, c.x2-c.x1, c.y2-c.y1);
+    ctx.fillRect(c.x1*canvas.width, c.y1*canvas.height, (c.x2-c.x1)*canvas.width, (c.y2-c.y1)*canvas.height);
   }
 }
 
