@@ -7,9 +7,9 @@ I was looking for a very simple, web based way to take a collection of images an
 
 Creates YOLO/Darknet style .txt files:<br/>
 <pre>
-0 1.025 0.90416666666667 0.10625 0.1
+0 0.025 0.90416666666667 0.10625 0.1
 0 0.73125 0.86458333333333 0.0171875 0.03125
-3 1.353125 0.925 0.10625 0.20625
+3 0.353125 0.925 0.10625 0.20625
 </pre>
   
 <h2>Features</h2>
