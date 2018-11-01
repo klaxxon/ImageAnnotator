@@ -18,8 +18,9 @@ Scroll wheel zooming is supported.<br/>
 
 
 <h2>TODO</h2>
+Add security
 Review current annotations
-Undo last annotation
+
 
 <h2>Install</h2>
 
