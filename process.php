@@ -14,7 +14,8 @@ if ($func == 'load') {
   closedir($dir);
   shuffle($images);
   foreach($images as $f) {
-    if (!file_exists("data/images/$f.xml")) {
+    $txt = substr($f, 0, strlen($f) - 4);
+    if (!file_exists("data/images/$txt.txt")) {
       header('Content-Type: application/json');
       echo "{\"image\":\"$f\",\"classes\":[";
       $list = explode("\n", file_get_contents('data/classes.txt'));
@@ -33,8 +34,9 @@ if ($func == 'load') {
 }
 else if ($func == 'save') {
   $json = json_decode($_REQUEST['classes']);
-  $fn = $_REQUEST['image'];
-  $im = imagecreatefromjpeg("data/images/$fn");
+  $fnimg = $_REQUEST['image'];
+  $fn = substr($fnimg, 0, strlen($fnimg) - 4);
+  $im = imagecreatefromjpeg("data/images/$fnimg");
   $imwidth = imagesx($im);
   $imheight = imagesy($im);
   imagedestroy($im);
