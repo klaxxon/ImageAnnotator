@@ -16,6 +16,7 @@ Scroll wheel zooming is supported.<br/>
 
 
 <h2>TODO</h2>
+Review current annotations
 Undo
 
 <h2>Install</h2>
