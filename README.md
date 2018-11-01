@@ -18,7 +18,6 @@ Scroll wheel zooming is supported.<br/>
 <h2>TODO</h2>
 Review current annotations
 Undo last annotation
-Create script to build the test and train text files.
 
 <h2>Install</h2>
 
