@@ -19,18 +19,27 @@ closedir($d);
 // Randomize
 shuffle($batch);
 $total = count($batch);
-echo "Creating test.txt....\n";
+$cwd = getcwd();
+
+$cnt = 0;
+echo "Creating test.txt....";
 $pfile = fopen("test.txt", "w");
 for($a=0;$a<$total*$TEST_PERCENTAGE/100.0;$a++) {
   $fn = array_pop($batch);
   $fn = substr($fn, 0, strlen($fn) - 4);
-  fwrite($pfile, "$images_dir/$fn\n");
+  fwrite($pfile, "$cwd/$images_dir/$fn\n");
+  $cnt++;
 }
 fclose($pfile);
-echo "Creating train.txt....\n";
+echo "$cnt images\n";
+
+$cnt = 0;
+echo "Creating train.txt....";
 $pfile = fopen("train.txt", "w");
 while ($fn = array_pop($batch)) {
   $fn = substr($fn, 0, strlen($fn) - 4);
-  fwrite($pfile, "$images_dir/$fn\n");
+  fwrite($pfile, "$cwd/$images_dir/$fn\n");
+  $cnt++;
 }
 fclose($pfile);
+echo "$cnt images\n";
