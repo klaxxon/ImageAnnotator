@@ -91,15 +91,22 @@ function save() {
 
 function mouseDown(e) {
   if (tclass == null) return;
-  rect.startX = (e.pageX - $("#canvas").position().left) / scale + originx;
-  rect.startY = (e.pageY - $("#canvas").position().top) / scale + originy;
+  var rct = canvas.getBoundingClientRect();
+  var mx = e.pageX - rct.left;
+  var my = e.pageY - rct.top;
+  rect.startX = mx / scale + originx;
+  rect.startY = my / scale + originy;
+  console.log(rect.startX, rect.startY);
   drag = true;
 }
 
 function mouseUp(e) {
   if (tclass == null) return;
-  var x2 = (e.pageX-$("#canvas").position().left) /scale + originx;
-  var y2 = (e.pageY-$("#canvas").position().top) / scale + originy;
+  var rct = canvas.getBoundingClientRect();
+  var mx = e.pageX - rct.left;
+  var my = e.pageY - rct.top;
+  var x2 = mx /scale + originx;
+  var y2 = my / scale + originy;
   var z = {"class":tclass, "x1":rect.startX, "y1":rect.startY, "x2":x2, "y2":y2};
   classes.push(z);
   $("#debug").html(JSON.stringify(classes));
@@ -110,8 +117,11 @@ function mouseUp(e) {
 
 function mouseMove(e) {
   if (drag) {
-    rect.w = (e.pageX - $("#canvas").position().left) / scale + originx - rect.startX;
-    rect.h = (e.pageY - $("#canvas").position().top) / scale + originy - rect.startY ;
+    var rct = canvas.getBoundingClientRect();
+    var mx = e.pageX - rct.left;
+    var my = e.pageY - rct.top;
+    rect.w = mx / scale + originx - rect.startX;
+    rect.h = my / scale + originy - rect.startY ;
     clear()
     draw();
   }
@@ -119,9 +129,9 @@ function mouseMove(e) {
 
 function draw() {
   ctx.setLineDash([6]);
-  ctx.lineWidth = 10;
-  ctx.strokeStyle = "hsla(" + (tclass*60) + ", 100%, 50%, 0.3)";
-  ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+  ctx.lineWidth = 5;
+  ctx.fillStyle = "hsla(" + (tclass*60) + ", 100%, 50%, 0.3)";
+  ctx.fillRect(rect.startX, rect.startY, rect.w, rect.h);
 }
 
 function clear() {
@@ -138,8 +148,9 @@ function clear() {
 canvas.onwheel = function(event) {
   event.preventDefault();
 
-  var mousex = event.clientX - canvas.offsetLeft;
-  var mousey = event.clientY - canvas.offsetTop;
+  var rct = canvas.getBoundingClientRect();
+  var mousex = event.clientX - rct.left;
+  var mousey = event.clientY - rct.top;
   
   var wheel = event.deltaY < 0 ? 1 : -1;
 
