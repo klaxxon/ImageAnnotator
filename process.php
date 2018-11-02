@@ -12,12 +12,14 @@ if ($func == 'load') {
     }
   }
   closedir($dir);
+  $total_images = count($images);
+  $total_annotated = floor(shell_exec("ls -1 data/images/*.txt | wc -l"));
   shuffle($images);
   foreach($images as $f) {
     $txt = substr($f, 0, strlen($f) - 4);
     if (!file_exists("data/images/$txt.txt")) {
       header('Content-Type: application/json');
-      echo "{\"image\":\"$f\",\"classes\":[";
+      echo "{\"image\":\"$f\",\"total_images\":$total_images,\"total_annotated\":$total_annotated,\"classes\":[";
       $list = explode("\n", file_get_contents('data/classes.txt'));
       $first = true;
       foreach($list as $l) {
@@ -91,4 +93,33 @@ else if ($func == 'save') {
   }
   file_put_contents("data/images/$fn.txt", $txt);
   echo "{\"status\":\"ok\"}\n";
+}
+else if ($func == 'seg') {
+  $j = json_decode($_REQUEST['segment']);
+  $fnimg = $_REQUEST['image'];
+  $img = imagecreatefromjpeg("data/images/$fnimg");
+  if ($j->x2 > $j->x1) {
+    $bw = $j->x2 - $j->x1; 
+    $x = $j->x1;
+  }
+  else {
+    $bw = $j->x1 - $j->x2;
+    $x = $j->x2;
+  }
+  if ($j->y2 > $j->y1) {
+    $bh = $j->y2 - $j->y1; 
+    $y = $j->y1;
+  }
+  else {
+    $bh = $j->y1 - $j->y2; 
+    $y = $j->y2;
+  }
+  $w = imagesx($img) * $bw;
+  $h = imagesy($img) * $bh;
+  $im2 = imagecreatetruecolor($w, $h);
+  imagecopy($im2, $img, 0, 0, $x*imagesx($img) , $y*imagesy($img), $w, $h);
+  imagedestroy($img);
+  header('Content-Type: image/jpeg');
+  imagejpeg($im2);
+  imagedestroy($im2);
 }

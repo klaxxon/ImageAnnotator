@@ -12,26 +12,50 @@
     .title {
       font-size:2em;
     }
+    .datainfo {
+      font-size: 1em;
+      float: right;
+    }
+    .segimg {
+      width:300px;
+    }
+    .imglist {
+      overflow-y: auto;
+      height: 500px;
+    }
+    .dtitle {
+      font-size:1.2em;
+      background-color:gray;
+      color: white;
+    }
   </style>
   </head>
 <body onload='init()' style="overflow-x:hidden;">
-<table border='1' width="100%">
-  <tr><td class='title'>PHP Annotator</td><td><div id='filename'></div></td></td></tr>
+<table border='1'>
   <tr>
     <td style="width:1024px; height:768px;">
+      <div>
+        <span class='title'>PHP Annotator</span><span id='data_info' class='datainfo'>T</span>
+      </div>
+      <hr/>
+      <div class='dtitle'>Image filename:&nbsp;<span  id='filename'></span></div>
       <canvas id='canvas'></canvas>
     </td>
-    <td valign='top' style='width:20%; text-align:center;'>
-      Classes<br/>
+    <td valign='top' style='width:300px; text-align:center;'>
+      <div class='dtitle'>Classes</div>
       <div id='classes'>
       </div>
       <br/>
       <div id='debug'></div>
       <br/>
-      <button onclick='undoLast()'>Undo Last Annotation</button><br/>
+      <button onclick='undoLast()'>Undo Last Annotation</button>
       <button onclick='clearAll()'>Clear Annotations</button><br/>
       <br/>
       <button onclick='save()'>Save</button><br/>
+      <br/>
+      <div style='width:100%;'><div class='dtitle'>Segmented Images</div>
+       <div class='imglist' id='imglist'></div>
+      </div>
     </td>
   </tr>
 </table>
@@ -43,6 +67,7 @@ var originy = 0;
 var zoomIntensity = 0.2;
 var tclass = null;
 var classes = [];
+var classlist = [];
 var imagename = null;
 
 var canvas = document.getElementById('canvas'),
@@ -60,11 +85,13 @@ function class_click(cls) {
 
 function clearAll() {
   classes = [];
+  $("#imglist").html("");
   clear();
 }
 
 function undoLast() {
   classes.pop();
+  $("#imglist div").first().remove();
   clear();
 }
 
@@ -77,6 +104,7 @@ function init() {
   originx = 0;
   originy = 0;
   $("#debug").html("");
+  $("#imglist").html("");
  //ctx.fillStyle = "blue";
   //ctx.fillRect(0, 0, canvas.width, canvas.height);
   canvas.addEventListener('mousedown', mouseDown, false);
@@ -94,10 +122,12 @@ function init() {
     img.onload = function() {
       ctx.drawImage(img, 0, 0,1024,768);
     }
+    $("#data_info").html("Total images:<b>" + data.total_images + "</b><br/>Total annotations:<b>" + data.total_annotated + " (" + (100.0*data.total_annotated/data.total_images).toFixed(1) + "%)</b>");
     col = 0;
+    classlist = data.classes;
     var r = '';
     for(var a in data.classes) {
-      r += "<div class='tclass' style='background-color:hsl(" + col + ",100%,50%)' onclick='class_click(\"" + a+"\");'><input type=\"radio\" name='classes' id=\"class_" + a + "\"'/>" + data.classes[a]  + "</div>";
+      r += "<div class='tclass' style='background-color:hsl(" + col + ",100%,80%)' onclick='class_click(\"" + a+"\");'><input type=\"radio\" name='classes' id=\"class_" + a + "\"'/>" + data.classes[a]  + "</div>";
       col += 60;
     }
     $('#classes').html(r);
@@ -109,6 +139,11 @@ function save() {
     console.log(data);
     init();
   }, "json");
+}
+
+
+function getSegment(ann) {
+  $("#imglist").prepend("<div class='dtitle'>" + classlist[ann.class] + "<br/><img class='segimg' src='process.php?f=seg&image="+imagename+"&segment="+JSON.stringify(ann) + "'></div>");
 }
 
 
@@ -131,6 +166,7 @@ function mouseUp(e) {
   var y2 = my / scale + originy;
   var z = {"class":tclass, "x1":(rect.startX/canvas.width), "y1":(rect.startY/canvas.height), "x2":(x2/canvas.width), "y2":(y2/canvas.height)};
   classes.push(z);
+  getSegment(z);
   //$("#debug").html(JSON.stringify(classes));
   console.log(classes);
   drag = false;
