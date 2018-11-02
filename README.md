@@ -1,7 +1,7 @@
 # Simple Web Based Image Annotator
 ![Image Annotator](https://raw.githubusercontent.com/klaxxon/ImageAnnotator/master/screenshot2.png)
 
-Web based image annotator that creates Darknet/YOLO txt files for machine learning systems. Only two files needed!  Currently, the processing file uses PHP with th GD extension.
+Web based image annotator that creates Darknet/YOLO txt files for machine learning systems. Only two files needed!  Currently, the processing file uses PHP with the GD extension.
 
 I was looking for a very simple, web based way to take a collection of images and produce annotations from shared contributors over the web.  This is the very beginning so beware of missing features, bugs and security issues.
 
