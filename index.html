@@ -61,6 +61,8 @@
 </table>
 
 <script>
+var IMAGE_WIDTH = 1536;
+var IMAGE_HEIGHT = 1024;
 var scale = 1;
 var originx = 0;
 var originy = 0;
@@ -98,8 +100,8 @@ function undoLast() {
 
 function init() {
   classes = [];
-  canvas.width = 1024;
-  canvas.height = 768;
+  canvas.width = IMAGE_WIDTH;
+  canvas.height = IMAGE_HEIGHT;
   scale = 1;
   originx = 0;
   originy = 0;
@@ -120,7 +122,7 @@ function init() {
     $("#filename").html(imagename);
     img.src = 'data/images/' + data.image;
     img.onload = function() {
-      ctx.drawImage(img, 0, 0,1024,768);
+      ctx.drawImage(img, 0, 0,IMAGE_WIDTH,IMAGE_HEIGHT);
     }
     $("#data_info").html("Total images:<b>" + data.total_images + "</b><br/>Total annotations:<b>" + data.total_annotated + " (" + (100.0*data.total_annotated/data.total_images).toFixed(1) + "%)</b>");
     col = 0;
@@ -193,7 +195,7 @@ function draw() {
 }
 
 function clear() {
-  ctx.drawImage(img, 0, 0,1024,768);
+  ctx.drawImage(img, 0, 0,IMAGE_WIDTH,IMAGE_HEIGHT);
   for(var a in classes) {
     c = classes[a];
     ctx.fillStyle = "hsla(" + (c.class*60) + ", 100%, 50%, 0.3)";
