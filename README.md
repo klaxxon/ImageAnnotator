@@ -36,6 +36,22 @@ Put all of your images in a data/images directory.
 
 The webserver needs write access to this directory.
 
+<h3>Directory Structure</h3>
+<pre>
+index.html
+process.php
+data--\
+      classes.txt
+      images--\
+              image1.jpg
+              image2.jpg
+                   .
+                   .
+                   .
+</pre>
+
+The annotation files will be placed into the images directory with the same name as the image and a .txt extension.
+
 <h2>Do Over</h2>
 
 To clear out any annotations associated with an image, simply delete the associated .txt file.
