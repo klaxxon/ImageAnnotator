@@ -1,7 +1,7 @@
-# PHP Annotator for image annotation
-![PHP Annotator](https://raw.githubusercontent.com/klaxxon/phpannotator/master/screenshot2.png)
+# Image Annotator for image annotation
+![Image Annotator](https://raw.githubusercontent.com/klaxxon/ImageAnnotator/master/screenshot2.png)
 
-Web/PHP based image annotator that creates Darknet/YOLO txt files for machine learning systems. Only two files needed!
+Web based image annotator that creates Darknet/YOLO txt files for machine learning systems. Only two files needed!  Currently, the processing file uses PHP with th GD extension.
 
 I was looking for a very simple, web based way to take a collection of images and produce annotations from shared contributors over the web.  This is the very beginning so beware of missing features, bugs and security issues.
 
@@ -25,9 +25,9 @@ Review current annotations
 
 <h2>Install</h2>
 
-All you need is PHP with gdimage.
+All you need is PHP with gd image extension.
 
-There are only two files that need web access: index.php and process.php.
+There are only two files that need web access: index.html and process.php.
 Within the web directory containing the two files, create a "data" directory.  This is the operational directory for a training set.  This way, it can simply be linked or copied out.  In the future, you will be able to select a training set to annotate.
 
 Create a classes.txt file in your data directory containing a class name per line, no special characters since this name will be used as IDs in the javascript.<B><i>All annotations are indexes to this file.  Only add new classes to end of file, otherwise you will need to redo all annotations for the new class order.</i></b>
