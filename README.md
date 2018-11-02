@@ -1,7 +1,7 @@
 # PHP Annotator for image annotation
-![PHP Annotator](https://raw.githubusercontent.com/klaxxon/phpannotator/master/screenshot.png)
+![PHP Annotator](https://raw.githubusercontent.com/klaxxon/phpannotator/master/screenshot2.png)
 
-Web/PHP based image annotator that creates Darknet/YOLO txt files for machine learning systems.
+Web/PHP based image annotator that creates Darknet/YOLO txt files for machine learning systems. Only two files needed!
 
 I was looking for a very simple, web based way to take a collection of images and produce annotations from shared contributors over the web.  This is the very beginning so beware of missing features, bugs and security issues.
 
