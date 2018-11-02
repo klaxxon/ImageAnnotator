@@ -21,6 +21,7 @@ Segemented parts of image are displayed and zoomed<br/>
 <h2>TODO</h2>
 Add security
 Review current annotations
+Work on full resolution images
 
 
 <h2>Install</h2>
