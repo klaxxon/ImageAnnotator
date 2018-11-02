@@ -15,6 +15,7 @@ Creates YOLO/Darknet style .txt files:<br/>
 <h2>Features</h2>
 Images are shuffled before serving to the webpage.<br/>
 Scroll wheel zooming is supported.<br/>
+Segemented parts of image are displayed and zoomed<br/>
 
 
 <h2>TODO</h2>
