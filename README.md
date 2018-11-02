@@ -1,13 +1,15 @@
-# phpannotator
+# PHP Annotator for image annotation
+![PHP Annotator](https://raw.githubusercontent.com/klaxxon/phpannotator/master/screenshot.png)
+
 Web/PHP based image annotator that creates Darknet/YOLO txt files for machine learning systems.
 
 I was looking for a very simple, web based way to take a collection of images and produce annotations from shared contributors over the web.  This is the very beginning so beware of missing features, bugs and security issues.
 
 Creates YOLO/Darknet style .txt files:<br/>
 <pre>
-0 1.025 0.90416666666667 0.10625 0.1
+0 0.025 0.90416666666667 0.10625 0.1
 0 0.73125 0.86458333333333 0.0171875 0.03125
-3 1.353125 0.925 0.10625 0.20625
+3 0.353125 0.925 0.10625 0.20625
 </pre>
   
 <h2>Features</h2>
@@ -16,8 +18,9 @@ Scroll wheel zooming is supported.<br/>
 
 
 <h2>TODO</h2>
+Add security
 Review current annotations
-Undo last annotation
+
 
 <h2>Install</h2>
 
