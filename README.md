@@ -1,5 +1,5 @@
 # PHP Annotator for image annotation
-![PHP Annotator](https://raw.githubusercontent.com/klaxxon/phpannotator/master/screenshot.png)
+![PHP Annotator](https://raw.githubusercontent.com/klaxxon/phpannotator/master/screenshot2.png)
 
 Web/PHP based image annotator that creates Darknet/YOLO txt files for machine learning systems.
 
