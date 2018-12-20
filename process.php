@@ -2,12 +2,11 @@
 
 $func = $_REQUEST['f'];
 
-
 if ($func == 'load') {
   $images = array();
   $dir = opendir('data/images');
   while ($f = readdir($dir)) {
-    if (substr($f, -4) == '.jpg') {
+    if (substr($f, -4) == '.jpg' || substr($f, -4) == '.png') {
       $images[] = $f;
     }
   }
