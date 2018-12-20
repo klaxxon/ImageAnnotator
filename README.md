@@ -51,6 +51,11 @@ data--\
                    .
 </pre>
 
+<h8>To create a sequence of images from a video, you can use the following ffmpeg command:<br/>
+<code>ffmpeg -i video.mp4 -vf fps=1 image%d.png</code><br/>
+Where the fps=# is the number of images you want per second of video.
+</h8>
+
 The annotation files will be placed into the images directory with the same name as the image and a .txt extension.
 
 <h2>Do Over</h2>
