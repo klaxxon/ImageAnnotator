@@ -19,24 +19,24 @@ Segemented parts of image are displayed and zoomed<br/>
 
 
 <h2>TODO</h2>
-Add security
-Review current annotations
-Work on full resolution images
+Add security<br/>
+Review current annotations<br/>
+Work on full resolution images<br/>
 
 
 <h2>Install</h2>
 
-All you need is PHP with gd image extension.
-
-There are only two files that need web access: index.html and process.php.
-Within the web directory containing the two files, create a "data" directory.  This is the operational directory for a training set.  This way, it can simply be linked or copied out.  In the future, you will be able to select a training set to annotate.
-
+All you need is PHP with gd image extension.<br/>
+<br/>
+There are only two files that need web access: index.html and process.php.<br/>
+Within the web directory containing the two files, create a "data" directory.  This is the operational directory for a training set.  This way, it can simply be linked or copied out.  In the future, you will be able to select a training set to annotate.<br/>
+<br/>
 Create a classes.txt file in your data directory containing a class name per line, no special characters since this name will be used as IDs in the javascript.<B><i>All annotations are indexes to this file.  Only add new classes to end of file, otherwise you will need to redo all annotations for the new class order.</i></b>
-
-Put all of your images in a data/images directory.
-
-The webserver needs write access to this directory.
-
+<br/>
+Put all of your images in a data/images directory.<br/>
+<br/>
+The webserver needs write access to this directory.<br/>
+<br/>
 <h3>Directory Structure</h3>
 <pre>
 index.html
